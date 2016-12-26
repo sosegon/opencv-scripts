@@ -5,14 +5,18 @@
 #include "ppapi/cpp/instance.h"
 #include "ppapi/cpp/module.h"
 #include "ppapi/cpp/var.h"
+#include "ppapi/cpp/var_dictionary.h"
+#include "iostream"
+using namespace std;
 
 namespace {
 
 // The expected string sent by the browser.
-const char* const kHelloString = "hello";
+//const char* const kHelloString = "hello";
 // The string sent back to the browser upon receipt of a message
 // containing "hello".
-const char* const kReplyString = "hello from NaCl";
+const char* const kReplyDictionary = "Dictionary received";
+const char* const kReplyNotDictionary = "Dictionary not received";
 
 }  // namespace
 
@@ -23,15 +27,12 @@ class HelloTutorialInstance : public pp::Instance {
   virtual ~HelloTutorialInstance() {}
 
   virtual void HandleMessage(const pp::Var& var_message) {
-    // Ignore the message if it is not a string.
-    if (!var_message.is_string())
-      return;
-
-    // Get the string message and compare it to "hello".
-    std::string message = var_message.AsString();
-    if (message == kHelloString) {
-      // If it matches, send our response back to JavaScript.
-      pp::Var var_reply(kReplyString);
+    if (var_message.is_dictionary()) {
+      pp::VarDictionary dictionary(var_message);
+      pp::Var var_reply = pp::Var(kReplyDictionary);
+      PostMessage(var_reply);
+    } else {
+      pp::Var var_reply = pp::Var(kReplyNotDictionary);
       PostMessage(var_reply);
     }
   }

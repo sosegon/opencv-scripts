@@ -120,7 +120,7 @@ var common = (function() {
    * @param {number} height The height to create the plugin.
    * @param {Object} attrs Dictionary of attributes to set on the module.
    */
-  function createNaClModule(name, tool, path, width, height, attrs) {debugger;
+  function createNaClModule(name, tool, path, width, height, attrs) {
     var moduleEl = document.createElement('embed');
     moduleEl.setAttribute('name', 'nacl_module');
     moduleEl.setAttribute('id', 'nacl_module');
@@ -231,7 +231,7 @@ var common = (function() {
    *
    * This event listener is registered in attachDefaultListeners above.
    */
-  function moduleDidLoad() {debugger;
+  function moduleDidLoad() {
     common.naclModule = document.getElementById('nacl_module');
     updateStatus('RUNNING');
 
