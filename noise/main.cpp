@@ -12,17 +12,22 @@ int main(int argc, char *argv[])
     if(img.empty())
        return -1;
 
+    // Noise
     Mat mean = Mat::zeros(1, 1, CV_64FC1);
     Mat sigma = Mat::ones(1, 1, CV_64FC1);
     Mat noise = Mat(img.size(), CV_64FC1);
     Mat noise2 = Mat(img.size(), CV_8UC1);
 
     randn(noise, mean, sigma);
-    noise = noise * 100;
+    noise = noise * 50;
 
     noise.convertTo(noise2, CV_8UC1);
 
-    auto Mat result = noise2 + img;
+    Mat result = noise2 + img;
+
+    // Smooth
+    Size kernel = Size(21, 21);
+    GaussianBlur(result, result, kernel, 1, 60);
 
     namedWindow( "lena", CV_WINDOW_AUTOSIZE );
     imshow("lena", result);
