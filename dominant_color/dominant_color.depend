@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1497720981 source:/mnt/linux_shared/shared/lwork/opencv-scripts/dominant_color/main.cpp
+	<stdio.h>
+	<stdlib.h>
+	<opencv2/opencv.hpp>
+	<queue>
+	<string>
+	<iostream>
+	<dirent.h>
+	<fstream>
+
